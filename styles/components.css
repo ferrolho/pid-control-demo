@@ -1,0 +1,224 @@
+/* Buttons */
+button {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--primary-bg);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+button:hover {
+    background: var(--secondary-bg);
+    border-color: var(--text-muted);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.primary-btn {
+    background: var(--p-color);
+    color: white;
+    border-color: var(--p-color);
+}
+
+.primary-btn:hover {
+    background: #2563eb;
+    border-color: #2563eb;
+}
+
+.preset-btn {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+.preset-btn:hover {
+    background: var(--p-color);
+    color: white;
+    border-color: var(--p-color);
+}
+
+/* Sliders */
+input[type="range"] {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border-color);
+    outline: none;
+    -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--text-primary);
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+    transform: scale(1.2);
+}
+
+input[type="range"]:hover::-moz-range-thumb {
+    transform: scale(1.2);
+}
+
+/* PID-specific slider styling */
+.p-slider::-webkit-slider-thumb {
+    background: var(--p-color);
+}
+
+.p-slider::-moz-range-thumb {
+    background: var(--p-color);
+}
+
+.i-slider::-webkit-slider-thumb {
+    background: var(--i-color);
+}
+
+.i-slider::-moz-range-thumb {
+    background: var(--i-color);
+}
+
+.d-slider::-webkit-slider-thumb {
+    background: var(--d-color);
+}
+
+.d-slider::-moz-range-thumb {
+    background: var(--d-color);
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--p-color);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-label input {
+    margin: 0;
+}
+
+/* Target slider specific styling */
+#target-slider {
+    flex: 1;
+    min-width: 200px;
+}
+
+#target-slider::-webkit-slider-thumb {
+    background: #f59e0b;
+}
+
+#target-slider::-moz-range-thumb {
+    background: #f59e0b;
+}
+
+/* Tooltips */
+[data-term] {
+    cursor: pointer;
+    position: relative;
+}
+
+[data-term]:hover {
+    text-decoration: underline;
+}
+
+/* Highlight effects */
+.highlight {
+    animation: highlight-pulse 0.5s ease;
+}
+
+@keyframes highlight-pulse {
+    0%, 100% {
+        background: transparent;
+    }
+    50% {
+        background: rgba(59, 130, 246, 0.2);
+    }
+}
+
+/* Loading state */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Value displays */
+#kp-value, #ki-value, #kd-value {
+    display: inline-block;
+    min-width: 2.5rem;
+    font-weight: 600;
+    text-align: right;
+}
+
+#kp-value {
+    color: var(--p-color);
+}
+
+#ki-value {
+    color: var(--i-color);
+}
+
+#kd-value {
+    color: var(--d-color);
+}
+
+/* Mobile touch targets */
+@media (max-width: 768px) {
+    button {
+        padding: var(--spacing-md) var(--spacing-lg);
+        font-size: var(--font-size-lg);
+    }
+
+    input[type="range"] {
+        height: 8px;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
+    }
+
+    input[type="checkbox"] {
+        width: 24px;
+        height: 24px;
+    }
+}

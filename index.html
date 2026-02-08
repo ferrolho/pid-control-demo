@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive PID Control Demo</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/side-panel.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="main-content">
+            <header class="app-header">
+                <h1>Interactive PID Control Demo</h1>
+                <div class="equation-display">
+                    <span class="equation-label">Control Signal:</span>
+                    <span class="equation">
+                        <span class="term-label">u(t)</span> =
+                        <span class="term p-term" data-term="proportional" title="Proportional term">
+                            K<sub>p</sub>
+                        </span>·<span data-term="error-signal">e(t)</span> +
+                        <span class="term i-term" data-term="integral" title="Integral term">
+                            K<sub>i</sub>
+                        </span>·∫<span data-term="error-signal">e(t)</span>dt +
+                        <span class="term d-term" data-term="derivative" title="Derivative term">
+                            K<sub>d</sub>
+                        </span>·d<span data-term="error-signal">e(t)</span>/dt
+                    </span>
+                </div>
+                <p class="equation-hint">💡 Click on terms to learn more</p>
+            </header>
+
+            <section class="simulation-section">
+                <canvas id="simulation-canvas" width="800" height="200"></canvas>
+                <div class="target-control">
+                    <label for="target-slider">
+                        <span>Target Position: <span id="target-value">50</span></span>
+                    </label>
+                    <input type="range" id="target-slider" min="10" max="90" value="50" step="1">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="auto-step-toggle">
+                        <span>Auto-step mode</span>
+                    </label>
+                </div>
+            </section>
+
+            <section class="controls-section">
+                <div class="pid-controls">
+                    <div class="control-group">
+                        <label for="kp-slider">
+                            <span class="p-term" data-term="proportional">K<sub>p</sub></span>:
+                            <span id="kp-value">2.0</span>
+                            <span class="control-hint">"Spring-like"</span>
+                        </label>
+                        <input type="range" id="kp-slider" min="0" max="10" value="2.0" step="0.1" class="p-slider">
+                    </div>
+                    <div class="control-group">
+                        <label for="ki-slider">
+                            <span class="i-term" data-term="integral">K<sub>i</sub></span>:
+                            <span id="ki-value">0.1</span>
+                            <span class="control-hint">"Eliminates error"</span>
+                        </label>
+                        <input type="range" id="ki-slider" min="0" max="2" value="0.1" step="0.01" class="i-slider">
+                    </div>
+                    <div class="control-group">
+                        <label for="kd-slider">
+                            <span class="d-term" data-term="derivative">K<sub>d</sub></span>:
+                            <span id="kd-value">0.5</span>
+                            <span class="control-hint">"Damping"</span>
+                        </label>
+                        <input type="range" id="kd-slider" min="0" max="5" value="0.5" step="0.1" class="d-slider">
+                    </div>
+                </div>
+
+                <div class="preset-controls">
+                    <label>Presets:</label>
+                    <button class="preset-btn" data-preset="well-tuned">Well-tuned</button>
+                    <button class="preset-btn" data-preset="too-much-p">Too much P</button>
+                    <button class="preset-btn" data-preset="no-damping">No damping</button>
+                    <button class="preset-btn" data-preset="p-only-friction">P-only w/ friction</button>
+                    <button class="preset-btn" data-preset="aggressive-d">Aggressive D</button>
+                </div>
+
+                <div class="action-controls">
+                    <button id="play-pause-btn" class="primary-btn">⏸ Pause</button>
+                    <button id="reset-btn">↻ Reset</button>
+                    <button id="disturbance-btn">⚡ Add Disturbance</button>
+                </div>
+            </section>
+
+            <section class="metrics-section">
+                <h3>Performance Metrics</h3>
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <span class="metric-label" data-term="rise-time">Rise Time:</span>
+                        <span class="metric-value" id="rise-time-value">—</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label" data-term="settling-time">Settling Time:</span>
+                        <span class="metric-value" id="settling-time-value">—</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label" data-term="overshoot">Overshoot:</span>
+                        <span class="metric-value" id="overshoot-value">—</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label" data-term="steady-state-error">Steady-State Error:</span>
+                        <span class="metric-value" id="ss-error-value">—</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="graphs-section">
+                <div class="graph-container">
+                    <canvas id="position-chart"></canvas>
+                </div>
+                <div class="graph-container">
+                    <canvas id="error-chart"></canvas>
+                </div>
+                <div class="graph-container">
+                    <canvas id="control-terms-chart"></canvas>
+                </div>
+            </section>
+        </div>
+
+        <aside class="side-panel" id="side-panel">
+            <div class="side-panel-header">
+                <h2>📚 Learn More</h2>
+                <button class="close-btn" id="close-panel-btn">✕</button>
+            </div>
+            <div class="side-panel-content">
+                <nav class="content-nav">
+                    <button class="nav-btn active" data-category="concepts">Concepts</button>
+                    <button class="nav-btn" data-category="terms">PID Terms</button>
+                    <button class="nav-btn" data-category="advanced">Advanced</button>
+                </nav>
+                <div class="content-area" id="content-area">
+                    <p class="placeholder">Click on any term in the equation or metrics to learn more.</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

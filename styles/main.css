@@ -1,0 +1,336 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Colors */
+    --primary-bg: #ffffff;
+    --secondary-bg: #f5f7fa;
+    --border-color: #d1d9e6;
+    --text-primary: #2d3748;
+    --text-secondary: #4a5568;
+    --text-muted: #718096;
+
+    /* PID term colors */
+    --p-color: #3b82f6;
+    --i-color: #10b981;
+    --d-color: #ef4444;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    /* Typography */
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+
+    /* Layout */
+    --side-panel-width: 320px;
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    background: var(--secondary-bg);
+    line-height: 1.6;
+}
+
+.app-container {
+    display: grid;
+    grid-template-columns: 1fr var(--side-panel-width);
+    min-height: 100vh;
+    max-width: 1600px;
+    margin: 0 auto;
+    background: var(--primary-bg);
+}
+
+.main-content {
+    padding: var(--spacing-xl);
+    overflow-y: auto;
+}
+
+/* Header */
+.app-header {
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.app-header h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+}
+
+.equation-display {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--secondary-bg);
+    border-radius: 8px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.equation-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.equation {
+    font-size: var(--font-size-lg);
+    font-family: 'Courier New', monospace;
+}
+
+.equation .term {
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.equation .term:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.equation .p-term {
+    color: var(--p-color);
+    font-weight: 600;
+}
+
+.equation .i-term {
+    color: var(--i-color);
+    font-weight: 600;
+}
+
+.equation .d-term {
+    color: var(--d-color);
+    font-weight: 600;
+}
+
+.equation-hint {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Sections */
+section {
+    margin-bottom: var(--spacing-xl);
+}
+
+section h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-secondary);
+}
+
+/* Simulation section */
+.simulation-section {
+    background: var(--secondary-bg);
+    border-radius: 8px;
+    padding: var(--spacing-lg);
+}
+
+#simulation-canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    background: white;
+    margin-bottom: var(--spacing-md);
+}
+
+.target-control {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.target-control label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-weight: 500;
+}
+
+#target-value {
+    display: inline-block;
+    min-width: 2rem;
+    font-weight: 600;
+    color: var(--p-color);
+}
+
+/* Controls section */
+.controls-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.pid-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.control-group label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 500;
+}
+
+.control-hint {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    font-style: italic;
+    margin-left: var(--spacing-sm);
+}
+
+.preset-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.preset-controls label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.action-controls {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+/* Metrics section */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.metric {
+    padding: var(--spacing-md);
+    background: var(--secondary-bg);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.metric-label {
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.metric-label:hover {
+    text-decoration: underline;
+}
+
+.metric-value {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Graphs section */
+.graphs-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+}
+
+.graph-container {
+    background: var(--primary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: var(--spacing-md);
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .app-container {
+        grid-template-columns: 1fr;
+    }
+
+    .side-panel {
+        position: fixed;
+        right: -100%;
+        top: 0;
+        bottom: 0;
+        width: var(--side-panel-width);
+        transition: right 0.3s ease;
+        z-index: 1000;
+    }
+
+    .side-panel.open {
+        right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: var(--spacing-md);
+    }
+
+    .app-header h1 {
+        font-size: var(--font-size-xl);
+    }
+
+    .equation-display {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .equation {
+        font-size: var(--font-size-base);
+    }
+
+    .pid-controls {
+        grid-template-columns: 1fr;
+    }
+
+    .target-control {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .action-controls {
+        flex-direction: column;
+    }
+
+    .side-panel {
+        top: auto;
+        bottom: -100%;
+        right: 0;
+        left: 0;
+        width: 100%;
+        height: 60vh;
+        transition: bottom 0.3s ease;
+    }
+
+    .side-panel.open {
+        bottom: 0;
+    }
+
+    .graphs-section {
+        gap: var(--spacing-md);
+    }
+}
