@@ -1,10 +1,14 @@
 /* Side panel */
 .side-panel {
+    width: var(--side-panel-width);
+    min-width: 250px;
+    max-width: 60%;
     background: var(--primary-bg);
-    border-left: 1px solid var(--border-color);
+    border-left: none; /* divider handles the visual separator */
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 .side-panel-header {

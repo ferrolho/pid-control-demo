@@ -2,7 +2,7 @@
 
 An educational web application for learning PID (Proportional-Integral-Derivative) control through interactive visualization and hands-on experimentation.
 
-**[Live Demo](https://[your-username].github.io/pid-control-demo/)** (after GitHub Pages deployment)
+**[Live Demo](https://ferrolho.github.io/pid-control-demo/)**
 
 ## Overview
 
@@ -161,7 +161,7 @@ No transpilation needed.
 
 1. Clone the repository:
    ```bash
-   git clone [repository-url]
+   git clone https://github.com/ferrolho/pid-control-demo.git
    cd pid-control-demo
    ```
 
@@ -184,7 +184,7 @@ No transpilation needed.
 1. Push code to GitHub repository
 2. Go to repository Settings → Pages
 3. Select "Deploy from main branch" and root directory
-4. Site will be available at `https://[username].github.io/pid-control-demo/`
+4. Site will be available at `https://ferrolho.github.io/pid-control-demo/`
 
 ## Future Enhancements
 
