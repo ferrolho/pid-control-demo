@@ -134,8 +134,7 @@ input[type="checkbox"] {
 
 /* Target slider specific styling */
 #target-slider {
-    flex: 1;
-    min-width: 200px;
+    width: 100%;
 }
 
 #target-slider::-webkit-slider-thumb {
