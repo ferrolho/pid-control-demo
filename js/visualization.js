@@ -13,6 +13,14 @@ export class Visualization {
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext('2d');
 
+        // Logical (CSS) dimensions
+        this.width = 800;
+        this.height = 200;
+
+        // Scale canvas for high-DPI displays
+        this.dpr = window.devicePixelRatio || 1;
+        this.resizeCanvas();
+
         // Trail for showing motion history
         this.trail = [];
         this.maxTrailLength = 60; // 1 second at 60fps
@@ -26,14 +34,25 @@ export class Visualization {
     }
 
     /**
+     * Scale canvas buffer for high-DPI displays
+     */
+    resizeCanvas() {
+        this.canvas.width = this.width * this.dpr;
+        this.canvas.height = this.height * this.dpr;
+        this.canvas.style.width = this.width + 'px';
+        this.canvas.style.height = this.height + 'px';
+        this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    }
+
+    /**
      * Draw the simulation state
      * @param {number} position - Cart position (0-100)
      * @param {number} target - Target position (0-100)
      * @param {number} disturbance - Disturbance force magnitude
      */
     draw(position, target, disturbance = 0) {
-        const width = this.canvas.width;
-        const height = this.canvas.height;
+        const width = this.width;
+        const height = this.height;
 
         // Clear canvas
         this.ctx.clearRect(0, 0, width, height);
@@ -178,7 +197,7 @@ export class Visualization {
      * @returns {number|null} - Target position (0-100) or null if outside rail
      */
     clickToPosition(clickX) {
-        const width = this.canvas.width;
+        const width = this.width;
         const railPadding = 40;
         const railStart = railPadding;
         const railEnd = width - railPadding;
