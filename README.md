@@ -8,6 +8,17 @@ An educational web application for learning PID (Proportional-Integral-Derivativ
 
 PID control is fundamental to robotics, automation, and control systems. This demo helps you build intuitive understanding through interactive visualization rather than just equations and theory.
 
+### System Model
+
+A 1D cart slides along a bounded rail (0–100). The controller applies a single scalar **force** to the cart — this is the only control input. The cart obeys Newton's second law (`F = ma`) with velocity-dependent friction. The goal is to drive the cart's position to a desired target.
+
+|                   | Description                                          |
+| ----------------- | ---------------------------------------------------- |
+| **State**         | Position, velocity                                   |
+| **Control input** | Force ∈ [-100, 100]                                  |
+| **Parameters**    | Mass (inertia), friction (causes steady-state error) |
+| **Disturbances**  | Impulse forces that decay over time                  |
+
 ### Learning Objectives
 
 - Understand what each PID term (P, I, D) does and when it's needed
@@ -103,12 +114,6 @@ Where:
 3. Useful for comparing different tuning configurations
 
 ## Technical Implementation
-
-### System Model: 1D Cart on Rail
-- Simple physics: F = ma with friction
-- State: position (0-100 scale), velocity
-- Control input: force from PID controller
-- Disturbances: impulse forces that decay over time
 
 ### Controller Features
 - **Integral anti-windup**: Clamps accumulated integral to prevent windup

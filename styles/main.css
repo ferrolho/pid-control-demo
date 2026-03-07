@@ -154,6 +154,12 @@ body {
     font-style: italic;
 }
 
+.system-description {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-top: var(--spacing-xs);
+}
+
 /* Sections */
 section {
     margin-bottom: var(--spacing-xl);
