@@ -18,9 +18,10 @@ import { getPreset } from './presets.js';
 
 class App {
     constructor() {
-        // Core components
-        this.pid = new PIDController(2.0, 0.1, 0.5);
+        // Core components (defaults match 'well-tuned' preset)
+        this.pid = new PIDController(8.0, 3.0, 5.0);
         this.simulation = new CartSimulation();
+        this.simulation.setFriction(0.5);
         this.visualization = new Visualization('simulation-canvas');
         this.graphs = new Graphs();
         this.sidePanel = new SidePanel();
@@ -233,8 +234,9 @@ class App {
         document.getElementById('kd-slider').value = preset.kd;
         document.getElementById('kd-value').textContent = preset.kd.toFixed(1);
 
-        // Update friction
+        // Update physics parameters
         this.simulation.setFriction(preset.friction);
+        this.simulation.setGravity(preset.gravity || 0);
 
         // Reset system
         this.reset();
@@ -370,10 +372,11 @@ class App {
             }
 
             // Calculate error
-            const error = this.target - this.simulation.position;
+            const position = this.simulation.position;
+            const error = this.target - position;
 
             // Update PID controller
-            const { output, pTerm, iTerm, dTerm } = this.pid.update(error, this.dt);
+            const { output, pTerm, iTerm, dTerm } = this.pid.update(error, position, this.dt);
 
             // Update simulation
             this.simulation.update(output, this.dt);

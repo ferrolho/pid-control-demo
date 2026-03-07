@@ -10,14 +10,14 @@ PID control is fundamental to robotics, automation, and control systems. This de
 
 ### System Model
 
-A 1D cart slides along a bounded rail (0–100). The controller applies a single scalar **force** to the cart — this is the only control input. The cart obeys Newton's second law (`F = ma`) with velocity-dependent friction. The goal is to drive the cart's position to a desired target.
+A 1D cart slides along a bounded rail (0–100). The controller applies a single scalar **force** to the cart — this is the only control input. The cart obeys Newton's second law (`F = ma`) with viscous friction and optional gravity (tilted rail). The goal is to drive the cart's position to a desired target.
 
-|                   | Description                                          |
-| ----------------- | ---------------------------------------------------- |
-| **State**         | Position, velocity                                   |
-| **Control input** | Force ∈ [-100, 100]                                  |
-| **Parameters**    | Mass (inertia), friction (causes steady-state error) |
-| **Disturbances**  | Impulse forces that decay over time                  |
+|                   | Description                                                    |
+| ----------------- | -------------------------------------------------------------- |
+| **State**         | Position, velocity                                             |
+| **Control input** | Force ∈ [-100, 100]                                            |
+| **Parameters**    | Mass (inertia), friction (viscous damping), gravity (constant) |
+| **Disturbances**  | Impulse forces that decay over time                            |
 
 ### Learning Objectives
 
@@ -42,11 +42,11 @@ A 1D cart slides along a bounded rail (0–100). The controller applies a single
 
 ### Preset Scenarios
 Demonstrate key control concepts:
-- **Well-tuned**: Fast response, minimal overshoot, settles to target
-- **Too much P**: Demonstrates overshoot and oscillation
-- **No damping**: Shows oscillation without D term
-- **P-only with friction**: Reveals steady-state error (needs I term)
-- **Aggressive D**: Sluggish, overly cautious response
+- **Well-tuned**: Fast response (~1s rise), moderate overshoot (~19%), settles within ~7s
+- **Too much P**: Large overshoot (~55%) and sustained oscillation (~11 crossings)
+- **No damping**: Oscillation without D term (~67% overshoot, ~9 crossings)
+- **P-only (tilted rail)**: Steady-state error from constant force — needs I term to fix
+- **Aggressive D**: Sluggish, overly cautious response (~4s rise, ~2% overshoot)
 
 ### Interactive Controls
 - Adjust PID gains (Kp, Ki, Kd) with live updates

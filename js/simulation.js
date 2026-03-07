@@ -2,10 +2,10 @@
  * 1D Cart Simulation
  *
  * Simple physics simulation of a cart on a rail
- * F = ma with friction and disturbances
+ * F = ma with viscous friction, gravity, and disturbances
  *
  * State: position, velocity
- * Parameters: mass (affects inertia), friction (causes steady-state error)
+ * Parameters: mass (inertia), friction (viscous damping), gravity (constant force, e.g. tilted rail)
  */
 
 export class CartSimulation {
@@ -16,7 +16,8 @@ export class CartSimulation {
 
         // Physical parameters
         this.mass = 1.0; // kg
-        this.friction = 0.2; // friction coefficient
+        this.friction = 0.2; // viscous friction coefficient
+        this.gravity = 0; // constant force (e.g. tilted rail)
 
         // Bounds
         this.minPosition = 0;
@@ -40,9 +41,9 @@ export class CartSimulation {
             this.disturbanceForce = 0;
         }
 
-        // Total force = control + disturbance - friction
+        // Total force = control + disturbance + gravity - friction
         const frictionForce = -this.friction * this.velocity;
-        const totalForce = controlForce + this.disturbanceForce + frictionForce;
+        const totalForce = controlForce + this.disturbanceForce + this.gravity + frictionForce;
 
         // F = ma => a = F/m
         const acceleration = totalForce / this.mass;
@@ -94,5 +95,12 @@ export class CartSimulation {
      */
     setFriction(friction) {
         this.friction = friction;
+    }
+
+    /**
+     * Set gravity (constant force, e.g. tilted rail)
+     */
+    setGravity(gravity) {
+        this.gravity = gravity;
     }
 }

@@ -5,7 +5,7 @@
  *
  * Features:
  * - Integral anti-windup (clamps accumulated integral)
- * - Derivative on error (avoids derivative kick on setpoint changes)
+ * - Derivative on measurement (avoids derivative kick on setpoint changes)
  * - Output saturation limits
  * - Exposes individual P, I, D terms for visualization
  */
@@ -18,7 +18,7 @@ export class PIDController {
 
         // State variables
         this.integral = 0;
-        this.previousError = 0;
+        this.previousMeasurement = null;
 
         // Limits
         this.integralMax = 100;
@@ -32,12 +32,13 @@ export class PIDController {
     }
 
     /**
-     * Update the controller with new error measurement
+     * Update the controller with new error and measurement
      * @param {number} error - Current error (setpoint - measurement)
+     * @param {number} measurement - Current measured value
      * @param {number} dt - Time step in seconds
      * @returns {object} - { output, pTerm, iTerm, dTerm }
      */
-    update(error, dt) {
+    update(error, measurement, dt) {
         // Proportional term
         const pTerm = this.kp * error;
 
@@ -46,9 +47,12 @@ export class PIDController {
         this.integral = Math.max(-this.integralMax, Math.min(this.integralMax, this.integral));
         const iTerm = this.ki * this.integral;
 
-        // Derivative term (derivative on error)
-        const derivative = (error - this.previousError) / dt;
-        const dTerm = this.kd * derivative;
+        // Derivative term (derivative on measurement to avoid derivative kick)
+        let dTerm = 0;
+        if (this.previousMeasurement !== null) {
+            const derivative = (measurement - this.previousMeasurement) / dt;
+            dTerm = -this.kd * derivative;
+        }
 
         // Calculate total output
         let output = pTerm + iTerm + dTerm;
@@ -57,7 +61,7 @@ export class PIDController {
         output = Math.max(this.outputMin, Math.min(this.outputMax, output));
 
         // Store for next iteration
-        this.previousError = error;
+        this.previousMeasurement = measurement;
 
         // Store terms for visualization
         this.lastPTerm = pTerm;
@@ -77,7 +81,7 @@ export class PIDController {
      */
     reset() {
         this.integral = 0;
-        this.previousError = 0;
+        this.previousMeasurement = null;
         this.lastPTerm = 0;
         this.lastITerm = 0;
         this.lastDTerm = 0;

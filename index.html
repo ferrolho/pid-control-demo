@@ -29,7 +29,7 @@
                     </span>
                 </div>
                 <p class="equation-hint">💡 Click on terms to learn more</p>
-                <p class="system-description">A 1D cart on a rail controlled by a single <strong>force</strong> input · State: position &amp; velocity · Dynamics: <em>F = ma</em> with friction</p>
+                <p class="system-description">A 1D cart on a rail controlled by a single <strong>force</strong> input · State: position &amp; velocity · Dynamics: <em>F = ma</em> with friction and gravity</p>
             </header>
 
             <section class="simulation-section">
@@ -51,26 +51,26 @@
                     <div class="control-group">
                         <label for="kp-slider">
                             <span class="p-term" data-term="proportional">K<sub>p</sub></span>:
-                            <span id="kp-value">2.0</span>
+                            <span id="kp-value">8.0</span>
                             <span class="control-hint">"Spring-like"</span>
                         </label>
-                        <input type="range" id="kp-slider" min="0" max="10" value="2.0" step="0.1" class="p-slider">
+                        <input type="range" id="kp-slider" min="0" max="20" value="8.0" step="0.1" class="p-slider">
                     </div>
                     <div class="control-group">
                         <label for="ki-slider">
                             <span class="i-term" data-term="integral">K<sub>i</sub></span>:
-                            <span id="ki-value">0.1</span>
+                            <span id="ki-value">3.00</span>
                             <span class="control-hint">"Eliminates error"</span>
                         </label>
-                        <input type="range" id="ki-slider" min="0" max="2" value="0.1" step="0.01" class="i-slider">
+                        <input type="range" id="ki-slider" min="0" max="5" value="3.0" step="0.01" class="i-slider">
                     </div>
                     <div class="control-group">
                         <label for="kd-slider">
                             <span class="d-term" data-term="derivative">K<sub>d</sub></span>:
-                            <span id="kd-value">0.5</span>
+                            <span id="kd-value">5.0</span>
                             <span class="control-hint">"Damping"</span>
                         </label>
-                        <input type="range" id="kd-slider" min="0" max="5" value="0.5" step="0.1" class="d-slider">
+                        <input type="range" id="kd-slider" min="0" max="20" value="5.0" step="0.1" class="d-slider">
                     </div>
                 </div>
 
@@ -79,7 +79,7 @@
                     <button class="preset-btn" data-preset="well-tuned">Well-tuned</button>
                     <button class="preset-btn" data-preset="too-much-p">Too much P</button>
                     <button class="preset-btn" data-preset="no-damping">No damping</button>
-                    <button class="preset-btn" data-preset="p-only-friction">P-only w/ friction</button>
+                    <button class="preset-btn" data-preset="p-only-friction">P-only (tilted rail)</button>
                     <button class="preset-btn" data-preset="aggressive-d">Aggressive D</button>
                 </div>
 
