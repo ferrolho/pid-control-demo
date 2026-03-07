@@ -104,6 +104,14 @@ class App {
             }
         });
 
+        // Gravity (rail tilt) slider
+        document.getElementById('gravity-slider').addEventListener('input', (e) => {
+            const value = parseFloat(e.target.value);
+            this.simulation.setGravity(value);
+            this.visualization.setGravity(value);
+            document.getElementById('gravity-value').textContent = value.toFixed(1);
+        });
+
         // Canvas click to set target
         document.getElementById('simulation-canvas').addEventListener('click', (e) => {
             if (!this.autoStepEnabled) {
@@ -235,9 +243,12 @@ class App {
         document.getElementById('kd-value').textContent = preset.kd.toFixed(1);
 
         // Update physics parameters
+        const gravity = preset.gravity || 0;
         this.simulation.setFriction(preset.friction);
-        this.simulation.setGravity(preset.gravity || 0);
-        this.visualization.setGravity(preset.gravity || 0);
+        this.simulation.setGravity(gravity);
+        this.visualization.setGravity(gravity);
+        document.getElementById('gravity-slider').value = gravity;
+        document.getElementById('gravity-value').textContent = gravity.toFixed(1);
 
         // Reset system
         this.reset();
