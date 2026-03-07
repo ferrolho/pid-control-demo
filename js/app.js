@@ -237,6 +237,7 @@ class App {
         // Update physics parameters
         this.simulation.setFriction(preset.friction);
         this.simulation.setGravity(preset.gravity || 0);
+        this.visualization.setGravity(preset.gravity || 0);
 
         // Reset system
         this.reset();
